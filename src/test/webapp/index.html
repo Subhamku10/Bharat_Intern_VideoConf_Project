@@ -1,0 +1,55 @@
+<html>
+<head>
+
+	<style>
+		*{
+			background-color: black;
+			color: white;
+		}
+		a:hover{
+		color: red;
+	}
+	</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+</script>
+
+</head>
+<body>
+	<h1>Welcome to Video Streaming!</h1>
+	<div>
+		<video
+			autoplay="autoplay"x
+			id="videoElement">
+
+		</video>
+
+		<script>
+		
+		var video = $("#videoElement").get()[0];
+		var webcamstream;
+
+		if (navigator.mediaDevices.getUserMedia) {
+		  navigator.mediaDevices.getUserMedia({ audio: true,video: true })
+		    .then(function (stream) {
+		      video.srcObject = stream;
+		      var medias = new MediaStreamRecorder(stream);
+              medias.ondataavailable = function(blob) {
+                   socket.emit("livevideo", blob);
+              };
+              medias.start();
+		    })
+		    .catch(function (err0r) {
+		      console.log("Something went wrong!" + err0r);
+		    });
+		}
+		</script>
+		
+		<h2>Click here to <a href="stop.html">stop</a>!</h2>
+
+	</div>
+</body>
+
+</html>
